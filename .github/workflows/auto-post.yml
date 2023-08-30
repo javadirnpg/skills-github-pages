@@ -1,0 +1,28 @@
+name: Auto Post Creation and Deployment
+
+on:
+  push:
+    branches:
+      - my-pages  # Trigger the workflow when pushing to the my-pages branch
+
+jobs:
+  create-post:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Create New Post
+        run: |
+          # Your script to create a new post goes here
+          # For example, you can use `touch` to create an empty post file
+          touch _posts/my-new-post.md
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add .
+          git commit -m "Automated post creation"
+          git push origin my-pages  # Push the changes to the my-pages branch
